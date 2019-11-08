@@ -9,9 +9,12 @@
 import SwiftUI
 
 struct MKCloudView: View {
+    @State var hSpacing: CGFloat = 15
+    @State var vSpacing: CGFloat = 10
+
     var body: some View {
-        VStack(spacing: 20) {
-            HStack(spacing: 20) {
+        VStack(spacing: vSpacing) {
+            HStack(spacing: hSpacing) {
                 Image.cloud
                     .aspectFit()
                     .frame(height: 66)

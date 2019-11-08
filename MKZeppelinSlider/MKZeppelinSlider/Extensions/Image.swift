@@ -9,12 +9,13 @@
 import SwiftUI
 
 extension Image {
-    static var cloud: Image = .init("cloud")
+    static var cloud: Image { Image("cloud").resizable() }
 }
 
-extension Image {
-    func aspectFit() -> some View {
-        self.resizable()
-            .aspectRatio(contentMode: .fit)
-    }
-}
+//extension Image {
+//    func aspectFit() -> Self {
+//        let image = self.resizable()
+//        image.aspectRatio(contentMode: .fit)
+//        return image
+//    }
+//}
