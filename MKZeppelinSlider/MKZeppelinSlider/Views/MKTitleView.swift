@@ -12,6 +12,7 @@ struct MKTitleView: View {
     @State var showChoose: Bool = false
 
     let appearingDelay: Double
+    private let chooseOffsetY: CGFloat = 35
 
     private var transition: AnyTransition {
         AnyTransition
@@ -26,15 +27,16 @@ struct MKTitleView: View {
                     .accentColor(.black)
                     .font(Font.system(size: 40).weight(.semibold))
                     .transition(transition)
-                    .offset(y: -40)
+                    .offset(y: -self.chooseOffsetY)
             }
-
-            Color.zPink.frame(height: 50)
-
-            Text("quantity.")
-                .accentColor(.black)
-                .font(Font.system(size: 80).weight(.medium))
-                .transition(.move(edge: .top))
+            ZStack {
+                Color.zPink
+                    .padding(.top, self.chooseOffsetY)
+                Text("quantity.")
+                    .accentColor(.black)
+                    .font(Font.system(size: 80).weight(.medium))
+                    .layoutPriority(1)
+            }
         }
         .clipped()
         .transition(.move(edge: .top))
