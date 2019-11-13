@@ -11,28 +11,35 @@ import SwiftUI
 struct MKTitleView: View {
     @State var showChoose: Bool = false
 
+    let appearingDelay: Double
+
     private var transition: AnyTransition {
         AnyTransition
-            .move(edge: .top)
-//            .combined(with: .opacity)
+            .move(edge: .bottom)
+            .combined(with: .opacity)
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: -30) {
+        ZStack(alignment: .leading) {
             if showChoose {
                 Text("Choose")
                     .accentColor(.black)
                     .font(Font.system(size: 40).weight(.semibold))
-                    .transition(.opacity)
+                    .transition(transition)
+                    .offset(y: -40)
             }
+
+            Color.zPink.frame(height: 50)
 
             Text("quantity.")
                 .accentColor(.black)
                 .font(Font.system(size: 80).weight(.medium))
-//                .transition(transition)
+                .transition(.move(edge: .top))
         }
+        .clipped()
+        .transition(.move(edge: .top))
         .onAppear {
-            withAnimation(Animation.linear.delay(1.5)) {
+            withAnimation(Animation.easeOut.delay(self.appearingDelay)) {
                 self.showChoose.toggle()
             }
         }
@@ -42,7 +49,7 @@ struct MKTitleView: View {
 struct MKTitleView_Previews: PreviewProvider {
 
     static var previews: some View {
-        MKTitleView()
+        MKTitleView(appearingDelay: 0.5)
             .previewLayout(.fixed(width: 500, height: 500))
     }
 }

@@ -10,43 +10,44 @@ import SwiftUI
 
 struct ContentView: View {
     @State var sliderValue: Double = 5
-
     @State var showItems: Bool = false
-//    @State var showChooseTitle: Bool = false
 
-//    var transition: AnyTransition {
-//        AnyTransition
-//            .opacity
-//            .combined(with: .move(edge: .top))
-//            .move(edge: .top)
-//            .combined(with: .opacity)
-//    }
+    let showItemsDuration: Double = 1.5
+
+    var transition: AnyTransition {
+        AnyTransition
+            .move(edge: .top)
+            .combined(with: .opacity)
+    }
 
     var body: some View {
         GeometryReader { proxy in
             ZStack {
                 Color.zPink
-                    VStack(spacing: 0) {
-                        if self.showItems {
-                            HStack(spacing: 0) {
-                                MKTitleView()
-                                Spacer()
-                                MKCloudView()
-                            }//.transition(AnyTransition.move(edge: .top))
+                Group {
+                    if self.showItems {
+                        HStack(spacing: 0) {
+                            MKTitleView(appearingDelay: self.showItemsDuration * 0.9)
+                            Spacer()
+                            MKCloudView()
                         }
-
-                        MKZeppelinSliderView(value: self.$sliderValue)
+                        .transition(self.transition)
+                        .offset(y: -50)
                     }
-                    .padding(EdgeInsets(top: self.showItems ?  proxy.size.height * 0.2 : 0,
-                                        leading: proxy.size.width * 0.15,
-                                        bottom: proxy.size.height * 0.3,
-                                        trailing: 0))
+
+                    MKZeppelinSliderView(value: self.$sliderValue)
+                        .offset(y: self.showItems ? 200 : 0)
+                }
+                .padding(EdgeInsets(top: self.showItems ?  proxy.size.height * 0.2 : 0,
+                                    leading: proxy.size.width * 0.15,
+                                    bottom: proxy.size.height * 0.3,
+                                    trailing: 20))
 
             }
             .edgesIgnoringSafeArea(.all)
         }
         .onAppear() {
-            withAnimation {
+            withAnimation(.linear(duration: self.showItemsDuration)) {
                 self.showItems.toggle()
             }
         }
