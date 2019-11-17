@@ -28,6 +28,7 @@ struct MKTitleView: View {
                     .font(Font.system(size: 40).weight(.semibold))
                     .transition(transition)
                     .offset(y: -self.chooseOffsetY)
+                    .padding(.top, 10)
             }
             ZStack {
                 Color.zPink

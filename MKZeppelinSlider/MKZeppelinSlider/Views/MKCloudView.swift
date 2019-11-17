@@ -19,22 +19,22 @@ struct MKCloudView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .trailing, spacing: 6) {
             HStack {
                 Image.cloud
                     .aspectFit()
                     .frame(height: mainCloudHeight * 0.33)
-                    .padding(.leading, 140 * paddingPercent)
+                    .padding(.trailing, 20 + 50 * paddingPercent)
                 Image.cloud
                     .aspectFit()
                     .frame(height: mainCloudHeight)
-                    .padding(.leading, 30 + 60 * paddingPercent)
+                    .padding(.trailing, 30 + 60 * paddingPercent)
             }
 
             Image.cloud
                 .aspectFit()
                 .frame(height: mainCloudHeight * 0.5)
-                .padding(.leading, 80 + 90 * paddingPercent)
+                .padding(.trailing, 180 + 140 * paddingPercent)
         }
     }
 }
@@ -49,27 +49,27 @@ struct MKCloudView_Previews: PreviewProvider {
 
             ZStack {
                 Color.zPink
-                MKCloudView(sliderValue: .constant(0.2), sliderMaxValue: 20)
+                MKCloudView(sliderValue: .constant(4), sliderMaxValue: 20)
             }
 
             ZStack {
                 Color.zPink
-                MKCloudView(sliderValue: .constant(0.4), sliderMaxValue: 20)
+                MKCloudView(sliderValue: .constant(8), sliderMaxValue: 20)
             }
 
             ZStack {
                 Color.zPink
-                MKCloudView(sliderValue: .constant(0.6), sliderMaxValue: 20)
+                MKCloudView(sliderValue: .constant(12), sliderMaxValue: 20)
             }
 
             ZStack {
                 Color.zPink
-                MKCloudView(sliderValue: .constant(0.8), sliderMaxValue: 20)
+                MKCloudView(sliderValue: .constant(16), sliderMaxValue: 20)
             }
 
             ZStack {
                 Color.zPink
-                MKCloudView(sliderValue: .constant(1.0), sliderMaxValue: 20)
+                MKCloudView(sliderValue: .constant(20), sliderMaxValue: 20)
             }
         }
         .previewLayout(.fixed(width: 800, height: 600))
