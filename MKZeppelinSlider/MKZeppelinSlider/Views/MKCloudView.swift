@@ -12,20 +12,22 @@ struct MKCloudView: View {
     @State var hSpacing: CGFloat = 15
     @State var vSpacing: CGFloat = 10
 
+    private let mainCloudHeight: CGFloat = 160
+
     var body: some View {
         VStack(spacing: vSpacing) {
             HStack(spacing: hSpacing) {
                 Image.cloud
                     .aspectFit()
-                    .frame(height: 66)
+                    .frame(height: mainCloudHeight * 0.33)
                 Image.cloud
                     .aspectFit()
-                    .frame(height: 200)
+                    .frame(height: mainCloudHeight)
             }
 
             Image.cloud
                 .aspectFit()
-                .frame(height: 100)
+                .frame(height: mainCloudHeight * 0.5)
         }
     }
 }
