@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var showItems: Bool = false
 
     let showItemsDuration: Double = 1.5
+    private let mainCloudHeight: CGFloat = 160
 
     var transition: AnyTransition {
         AnyTransition
@@ -29,13 +30,14 @@ struct ContentView: View {
                         HStack(spacing: 0) {
                             MKTitleView(appearingDelay: self.showItemsDuration * 0.9)
                             Spacer()
-                            MKCloudView()
+                            MKCloudView(sliderValue: self.$sliderValue, sliderMaxValue: 20)
+                                .layoutPriority(1)
                         }
                         .transition(self.transition)
                         .offset(y: -50)
                     }
 
-                    MKZeppelinSliderView(value: self.$sliderValue)
+                    MKZeppelinSliderView(value: self.$sliderValue.animation())
                         .offset(y: self.showItems ? 200 : 0)
                 }
                 .padding(EdgeInsets(top: self.showItems ?  proxy.size.height * 0.2 : 0,

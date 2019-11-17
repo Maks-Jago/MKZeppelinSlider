@@ -13,8 +13,8 @@ struct MKZeppelinSliderView: View {
 
     var body: some View {
         VStack {
-            Text("asd")
-            Slider(value: $value, in: 0...10, step: 1)
+            Text("\(value)")
+            Slider(value: $value, in: 0...20, step: 1)
                 .accentColor(.zSliderTrackColor)
                 .foregroundColor(.zSliderTrackColor)
         }
