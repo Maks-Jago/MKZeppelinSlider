@@ -9,12 +9,28 @@
 import SwiftUI
 
 struct MKZeppelinSliderView: View {
-    @Binding var value: Double
+    @Binding var animationValue: Double
+    @State private var sliderTitle: String = "5"
 
     var body: some View {
         VStack {
-            Text("\(value)")
-            Slider(value: $value, in: 0...20, step: 1)
+            ZStack {
+                Image.airship
+                    .aspectFit()
+                    .frame(width: 150)
+
+                Text("\(self.sliderTitle)")
+                    .font(Font.largeTitle.bold())
+                    .foregroundColor(Color.white)
+                    .offset(x: -20, y: -5)
+            }
+
+            Slider(value: Binding<Double>(get: { () -> Double in
+                self.animationValue
+            }, set: { newValue in
+                self.sliderTitle = "\(Int(newValue))"
+                self.animationValue = newValue
+            }), in: 0...20, step: 1)
                 .accentColor(.zSliderTrackColor)
                 .foregroundColor(.zSliderTrackColor)
         }
@@ -22,9 +38,21 @@ struct MKZeppelinSliderView: View {
 }
 
 struct MKZeppelinSlider_Previews: PreviewProvider {
-    @State static var sliderValue: Double = 5
 
     static var previews: some View {
-        MKZeppelinSliderView(value: $sliderValue)
+        MKZeppelinSliderView(animationValue: .constant(5))
+            .previewLayout(.fixed(width: 500, height: 500))
     }
 }
+
+/*
+ Button(action: {
+ self.rotatingAngle += 90
+ }) {
+ Rectangle()
+ .fill(Color.red)
+ .frame(width: 200, height: 200)
+ .rotationEffect(.degrees(rotatingAngle))
+ .animation(.interpolatingSpring(mass: 1, stiffness: 1, damping: 0.5, initialVelocity: 1))
+ }
+ */

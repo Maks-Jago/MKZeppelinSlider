@@ -10,12 +10,5 @@ import SwiftUI
 
 extension Image {
     static var cloud: Image { Image("cloud").resizable() }
+    static var airship: Image { Image(uiImage: UIImage(named: "airship")!).resizable() }
 }
-
-//extension Image {
-//    func aspectFit() -> Self {
-//        let image = self.resizable()
-//        image.aspectRatio(contentMode: .fit)
-//        return image
-//    }
-//}

@@ -37,7 +37,7 @@ struct ContentView: View {
                         .offset(y: -50)
                     }
 
-                    MKZeppelinSliderView(value: self.$sliderValue.animation())
+                    MKZeppelinSliderView(animationValue: self.$sliderValue.animation())
                         .offset(y: self.showItems ? 200 : 0)
                 }
                 .padding(EdgeInsets(top: self.showItems ?  proxy.size.height * 0.2 : 0,
