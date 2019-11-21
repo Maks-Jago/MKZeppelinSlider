@@ -12,6 +12,15 @@ struct MKZeppelinSliderView: View {
     @Binding var animationValue: Double
     @State private var sliderTitle: String = "5"
 
+    private var sliderBinding: Binding<Double> {
+        .init(get: { () -> Double in
+            self.animationValue
+        }) { newValue in
+            self.sliderTitle = "\(Int(newValue))"
+            self.animationValue = newValue
+        }
+    }
+
     var body: some View {
         VStack {
             ZStack {
@@ -25,12 +34,7 @@ struct MKZeppelinSliderView: View {
                     .offset(x: -20, y: -5)
             }
 
-            Slider(value: Binding<Double>(get: { () -> Double in
-                self.animationValue
-            }, set: { newValue in
-                self.sliderTitle = "\(Int(newValue))"
-                self.animationValue = newValue
-            }), in: 0...20, step: 1)
+            Slider(value: self.sliderBinding, in: 0...20, step: 1)
                 .accentColor(.zSliderTrackColor)
                 .foregroundColor(.zSliderTrackColor)
         }
