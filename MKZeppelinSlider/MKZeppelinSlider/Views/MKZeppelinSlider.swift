@@ -11,6 +11,9 @@ import SwiftUI
 struct MKZeppelinSliderView: View {
     @Binding var animationValue: Double
     @State private var sliderTitle: String = "5"
+    @State private var showAirship: Bool = false
+
+    var airshipAppearingDelay: Double = 0
 
     private var sliderBinding: Binding<Double> {
         .init(get: { () -> Double in
@@ -24,21 +27,33 @@ struct MKZeppelinSliderView: View {
     var body: some View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
-                ZStack {
-                    Image.airship
-                        .aspectFit()
-                        .frame(width: 150)
+                    ZStack {
+                        Spacer().aspectFit().frame(height: 89)
+                        if self.showAirship {
+                            ZStack {
+                                Image.airship
+                                    .aspectFit()
+                                    .frame(width: 150)
+                                    .layoutPriority(1)
 
-                    Text("\(self.sliderTitle)")
-                        .font(Font.largeTitle.bold())
-                        .foregroundColor(Color.white)
-                        .offset(x: -20, y: -5)
-                }
-                .offset(x: max(CGFloat(self.animationValue) * (proxy.size.width / 20.0) - 75, 0))
+                                Text("\(self.sliderTitle)")
+                                    .font(Font.largeTitle.bold())
+                                    .foregroundColor(Color.white)
+                                    .offset(x: -20, y: -5)
+                            }.transition(AnyTransition.scale.combined(with: .move(edge: .bottom)))
+                        }
+                    }
+                    .padding(.bottom, 20)
+                    .offset(x: CGFloat(self.animationValue) * (proxy.size.width / 20.0) - 55)
 
                 Slider(value: self.sliderBinding, in: 0...20, step: 1)
                     .accentColor(.zSliderTrackColor)
                     .foregroundColor(.zSliderTrackColor)
+            }
+        }
+        .onAppear {
+            withAnimation(Animation.easeOut.delay(self.airshipAppearingDelay)) {
+                self.showAirship.toggle()
             }
         }
     }
@@ -46,17 +61,13 @@ struct MKZeppelinSliderView: View {
 
 struct MKZeppelinSlider_Previews: PreviewProvider {
 
+    static var values: [Int] = Array(0...10)
+
     static var previews: some View {
         Group {
-            MKZeppelinSliderView(animationValue: .constant(1))
-            MKZeppelinSliderView(animationValue: .constant(2))
-            MKZeppelinSliderView(animationValue: .constant(3))
-            MKZeppelinSliderView(animationValue: .constant(4))
-            MKZeppelinSliderView(animationValue: .constant(5))
-            MKZeppelinSliderView(animationValue: .constant(6))
-            MKZeppelinSliderView(animationValue: .constant(7))
-            MKZeppelinSliderView(animationValue: .constant(8))
-            MKZeppelinSliderView(animationValue: .constant(9))
+            ForEach(values, id: \.self) { value in
+                MKZeppelinSliderView(animationValue: .constant(Double(value * 2)))
+            }
         }
         .previewLayout(.fixed(width: 500, height: 500))
     }
