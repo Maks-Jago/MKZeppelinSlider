@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		502CDAE223931B96002A6528 /* Inclinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502CDAE123931B96002A6528 /* Inclinable.swift */; };
 		50F3EE052375F48D00F6DC2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F3EE042375F48D00F6DC2D /* AppDelegate.swift */; };
 		50F3EE072375F48D00F6DC2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F3EE062375F48D00F6DC2D /* SceneDelegate.swift */; };
 		50F3EE092375F48D00F6DC2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F3EE082375F48D00F6DC2D /* ContentView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		502CDAE123931B96002A6528 /* Inclinable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inclinable.swift; sourceTree = "<group>"; };
 		50F3EE012375F48D00F6DC2D /* MKZeppelinSlider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MKZeppelinSlider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F3EE042375F48D00F6DC2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50F3EE062375F48D00F6DC2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				50F3EE25237603BD00F6DC2D /* AspectFit.swift */,
+				502CDAE123931B96002A6528 /* Inclinable.swift */,
 			);
 			path = ViewModifiers;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				50F3EE1A2375FA7F00F6DC2D /* Color.swift in Sources */,
 				50F3EE072375F48D00F6DC2D /* SceneDelegate.swift in Sources */,
 				50F3EE092375F48D00F6DC2D /* ContentView.swift in Sources */,
+				502CDAE223931B96002A6528 /* Inclinable.swift in Sources */,
 				50F3EE26237603BD00F6DC2D /* AspectFit.swift in Sources */,
 				50F3EE2E237611C900F6DC2D /* MKZeppelinSlider.swift in Sources */,
 				50F3EE212375FE5400F6DC2D /* MKCloudView.swift in Sources */,
