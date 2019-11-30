@@ -22,21 +22,24 @@ struct MKZeppelinSliderView: View {
     }
 
     var body: some View {
-        VStack {
-            ZStack {
-                Image.airship
-                    .aspectFit()
-                    .frame(width: 150)
+        GeometryReader { proxy in
+            VStack(alignment: .leading) {
+                ZStack {
+                    Image.airship
+                        .aspectFit()
+                        .frame(width: 150)
 
-                Text("\(self.sliderTitle)")
-                    .font(Font.largeTitle.bold())
-                    .foregroundColor(Color.white)
-                    .offset(x: -20, y: -5)
+                    Text("\(self.sliderTitle)")
+                        .font(Font.largeTitle.bold())
+                        .foregroundColor(Color.white)
+                        .offset(x: -20, y: -5)
+                }
+                .offset(x: max(CGFloat(self.animationValue) * (proxy.size.width / 20.0) - 75, 0))
+
+                Slider(value: self.sliderBinding, in: 0...20, step: 1)
+                    .accentColor(.zSliderTrackColor)
+                    .foregroundColor(.zSliderTrackColor)
             }
-
-            Slider(value: self.sliderBinding, in: 0...20, step: 1)
-                .accentColor(.zSliderTrackColor)
-                .foregroundColor(.zSliderTrackColor)
         }
     }
 }
@@ -44,8 +47,18 @@ struct MKZeppelinSliderView: View {
 struct MKZeppelinSlider_Previews: PreviewProvider {
 
     static var previews: some View {
-        MKZeppelinSliderView(animationValue: .constant(5))
-            .previewLayout(.fixed(width: 500, height: 500))
+        Group {
+            MKZeppelinSliderView(animationValue: .constant(1))
+            MKZeppelinSliderView(animationValue: .constant(2))
+            MKZeppelinSliderView(animationValue: .constant(3))
+            MKZeppelinSliderView(animationValue: .constant(4))
+            MKZeppelinSliderView(animationValue: .constant(5))
+            MKZeppelinSliderView(animationValue: .constant(6))
+            MKZeppelinSliderView(animationValue: .constant(7))
+            MKZeppelinSliderView(animationValue: .constant(8))
+            MKZeppelinSliderView(animationValue: .constant(9))
+        }
+        .previewLayout(.fixed(width: 500, height: 500))
     }
 }
 
