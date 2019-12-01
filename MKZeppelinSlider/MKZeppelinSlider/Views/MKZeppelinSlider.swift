@@ -17,28 +17,20 @@ struct MKZeppelinSliderView: View {
     @State private var showAirship: Bool = false
     @State private var inclineDirection: InclineDirection = .none
 
-    private let resetInclineSubject: PassthroughSubject<Void, Never> = .init()
-    private var resetInclinePublisher: AnyPublisher<InclineDirection, Never> {
-        resetInclineSubject
-            .debounce(for: 0.3, scheduler: RunLoop.main)
-            .map { InclineDirection.none }
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-    }
+    @State var previousAnimationValue: Double = 5
 
     private var sliderBinding: Binding<Double> {
         .init(get: { () -> Double in
             self.animationValue
         }) { newValue in
             self.sliderTitle = "\(Int(newValue))"
-            let newInclineDirection: InclineDirection = newValue > self.animationValue ? .leading : .trailing
+            let newInclineDirection: InclineDirection = newValue > self.previousAnimationValue ? .leading : .trailing
 
             withAnimation {
                 self.inclineDirection = newInclineDirection
             }
 
             self.animationValue = newValue
-            self.resetInclineSubject.send()
         }
     }
 
@@ -54,11 +46,6 @@ struct MKZeppelinSliderView: View {
                                     .frame(width: 150)
                                     .layoutPriority(1)
                                     .rotationEffect(.degrees(self.inclineDirection.rawValue))
-                                    .onReceive(self.resetInclinePublisher) { incline in
-                                        withAnimation {
-                                            self.inclineDirection = incline
-                                        }
-                                }
 
                                 Text("\(self.sliderTitle)")
                                     .font(Font.largeTitle.bold())
@@ -72,9 +59,15 @@ struct MKZeppelinSliderView: View {
                     .padding(.bottom, 30)
                     .offset(x: CGFloat(self.animationValue) * (proxy.size.width / 20.0) - 55)
 
-                Slider(value: self.sliderBinding, in: 0...20, step: 1)
-                    .accentColor(.zSliderTrackColor)
-                    .foregroundColor(.zSliderTrackColor)
+                Slider(value: self.sliderBinding, in: 0...20, step: 1) {
+                    if !$0 {
+                        withAnimation {
+                            self.inclineDirection = .none
+                        }
+                    }
+                }
+                .accentColor(.zSliderTrackColor)
+                .foregroundColor(.zSliderTrackColor)
             }
         }
         .onAppear {
