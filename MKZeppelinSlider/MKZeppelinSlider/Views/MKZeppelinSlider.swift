@@ -17,8 +17,17 @@ struct MKZeppelinSliderView: View {
     @State private var showAirship: Bool = false
     @State private var inclineDirection: InclineDirection = .none
 
-    @State var previousAnimationValue: Double = 5
+    @State var previousAnimationValue: Double = 10
 
+    private let resetInclineSubject: PassthroughSubject<Void, Never> = .init()
+    private var resetInclinePublisher: AnyPublisher<InclineDirection, Never> {
+        resetInclineSubject
+            .debounce(for: 0.1, scheduler: RunLoop.main)
+            .map { InclineDirection.none }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
+    
     private var sliderBinding: Binding<Double> {
         .init(get: { () -> Double in
             self.animationValue
@@ -31,9 +40,17 @@ struct MKZeppelinSliderView: View {
             }
 
             self.animationValue = newValue
+            self.resetInclineSubject.send()
         }
     }
 
+//    private var offset: CGSize {
+//        let items = Array(-10...10)
+//        let x = items.randomElement() ?? 0
+//        let y = items.randomElement() ?? 0
+//        return CGSize(width: CGFloat(x), height: CGFloat(y))
+//    }
+    
     var body: some View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
@@ -56,6 +73,7 @@ struct MKZeppelinSliderView: View {
                             .transition(AnyTransition.scale.combined(with: .move(edge: .bottom)))
                         }
                     }
+                    .addGravityMoving()
                     .padding(.bottom, 30)
                     .offset(x: CGFloat(self.animationValue) * (proxy.size.width / 20.0) - 55)
 
@@ -64,6 +82,11 @@ struct MKZeppelinSliderView: View {
                         withAnimation {
                             self.inclineDirection = .none
                         }
+                    }
+                }
+                .onReceive(self.resetInclinePublisher) { incline in
+                    withAnimation {
+                        self.inclineDirection = incline
                     }
                 }
                 .accentColor(.zSliderTrackColor)
@@ -92,15 +115,3 @@ struct MKZeppelinSlider_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 500, height: 500))
     }
 }
-
-/*
- Button(action: {
- self.rotatingAngle += 90
- }) {
- Rectangle()
- .fill(Color.red)
- .frame(width: 200, height: 200)
- .rotationEffect(.degrees(rotatingAngle))
- .animation(.interpolatingSpring(mass: 1, stiffness: 1, damping: 0.5, initialVelocity: 1))
- }
- */
