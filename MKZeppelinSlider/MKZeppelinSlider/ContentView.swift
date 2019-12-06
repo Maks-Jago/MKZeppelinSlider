@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var sliderValue: Double = 5
+    @State var sliderValue: Double = 10
     @State var showItems: Bool = false
 
     let showItemsDuration: Double = 1.5
@@ -34,11 +34,13 @@ struct ContentView: View {
                                 .layoutPriority(1)
                         }
                         .transition(self.transition)
-                        .offset(y: -50)
+                        .offset(y: -100)
                     }
 
                     MKZeppelinSliderView(animationValue: self.$sliderValue.animation(), airshipAppearingDelay: self.showItemsDuration * 0.9)
                         .offset(y: self.showItems ? 200 : 0)
+                        .padding(.leading, 50)
+                        .padding(.trailing, 100)
                 }
                 .padding(EdgeInsets(top: self.showItems ?  proxy.size.height * 0.2 : 0,
                                     leading: proxy.size.width * 0.15,

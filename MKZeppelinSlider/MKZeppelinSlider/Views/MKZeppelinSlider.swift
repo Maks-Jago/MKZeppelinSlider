@@ -13,7 +13,7 @@ struct MKZeppelinSliderView: View {
     @Binding var animationValue: Double
     var airshipAppearingDelay: Double = 0
 
-    @State private var sliderTitle: String = "5"
+    @State private var sliderTitle: String = "10"
     @State private var showAirship: Bool = false
     @State private var inclineDirection: InclineDirection = .none
 
@@ -43,19 +43,12 @@ struct MKZeppelinSliderView: View {
             self.resetInclineSubject.send()
         }
     }
-
-//    private var offset: CGSize {
-//        let items = Array(-10...10)
-//        let x = items.randomElement() ?? 0
-//        let y = items.randomElement() ?? 0
-//        return CGSize(width: CGFloat(x), height: CGFloat(y))
-//    }
-    
+        
     var body: some View {
         GeometryReader { proxy in
             VStack(alignment: .leading) {
                     ZStack {
-                        Spacer().frame(height: 89)
+                        Spacer().frame(height: 160)
                         if self.showAirship {
                             ZStack {
                                 Image.airship
@@ -76,12 +69,10 @@ struct MKZeppelinSliderView: View {
                     .addGravityMoving()
                     .padding(.bottom, 30)
                     .offset(x: CGFloat(self.animationValue) * (proxy.size.width / 20.0) - 55)
-
-                Slider(value: self.sliderBinding, in: 0...20, step: 1) {
-                    if !$0 {
-                        withAnimation {
-                            self.inclineDirection = .none
-                        }
+                
+                UISliderView(value: self.sliderBinding) {
+                    withAnimation {
+                        self.inclineDirection = .none
                     }
                 }
                 .onReceive(self.resetInclinePublisher) { incline in
