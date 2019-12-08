@@ -12,7 +12,7 @@ struct MKTitleView: View {
     @State var showChoose: Bool = false
 
     let appearingDelay: Double
-    private let chooseOffsetY: CGFloat = 35
+    private let chooseOffsetY: CGFloat = 37
 
     private var transition: AnyTransition {
         AnyTransition

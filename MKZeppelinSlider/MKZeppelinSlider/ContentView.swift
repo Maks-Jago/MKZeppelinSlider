@@ -30,8 +30,7 @@ struct ContentView: View {
                         HStack(spacing: 0) {
                             MKTitleView(appearingDelay: self.showItemsDuration * 0.9)
                             Spacer()
-                            MKCloudView(sliderValue: self.$sliderValue, sliderMaxValue: 20)
-                                .layoutPriority(1)
+                            MKCloudView(sliderValue: self.$sliderValue, sliderMaxValue: 20).layoutPriority(1)
                         }
                         .transition(self.transition)
                         .offset(y: -100)

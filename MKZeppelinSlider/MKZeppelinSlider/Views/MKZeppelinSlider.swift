@@ -97,11 +97,6 @@ struct MKZeppelinSlider_Previews: PreviewProvider {
     static var values: [Int] = Array(0...10)
 
     static var previews: some View {
-//        Group {
-//            ForEach(values, id: \.self) { value in
-//                MKZeppelinSliderView(animationValue: .constant(Double(value * 2)))
-//            }
-//        }
         MKZeppelinSliderView(animationValue: .constant(10))
             .previewLayout(.fixed(width: 500, height: 500))
     }

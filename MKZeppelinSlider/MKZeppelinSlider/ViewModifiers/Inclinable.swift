@@ -21,7 +21,6 @@ extension View {
     }
 }
 
-
 struct InclineEffect: GeometryEffect {
 
     var degrees: Double
@@ -39,9 +38,7 @@ struct InclineEffect: GeometryEffect {
 
     func effectValue(size: CGSize) -> ProjectionTransform {
         let angle = degrees * sin(animationValue * (.pi / 2.0))
-        print("\(angle)")
 
-//        let angle = CGFloat(degrees) * CGFloat(Double.pi / 180)
         let affineTransform = CGAffineTransform(translationX: size.width*0.5, y: size.height*0.5)
             .rotated(by: CGFloat(angle))
             .translatedBy(x: -size.width*0.5, y: -size.height*0.5)
